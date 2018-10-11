@@ -28,6 +28,12 @@ namespace PasswordHash.App.Services {
       return true;
     }
 
-    public bool Authenticate([FromBody] string username, [FromBody] string rawPassword) => throw new NotImplementedException();
+    public bool Authenticate([FromBody] string username, [FromBody] string rawPassword) {
+      var user = dbContext.Users.SingleOrDefault(u => u.Name == username);
+      if (user is null) {
+        return false;
+      }
+      return passwordService.VerifyPassword(user.HashedPassword, rawPassword, user.Salt);
+    }
   }
 }
