@@ -9,7 +9,7 @@ namespace PasswordHash.Lib {
       string hashed = HashPassword(rawPassword, salt);
       return (hashed, salt);
     }
-    public bool VerifyPassword(string rawPassword, string hashedPassword, byte[] salt) =>
+    public bool VerifyPassword(string hashedPassword, string rawPassword, byte[] salt) =>
       hashedPassword == HashPassword(rawPassword, salt);
 
     string HashPassword(string rawPassword, byte[] salt) =>

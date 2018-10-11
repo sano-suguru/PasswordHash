@@ -10,7 +10,7 @@ namespace PasswordHash.Lib.Test {
 
       var (hashed, salt) = sut.HashPassword(rawPassword);
 
-      Assert.True(sut.VerifyPassword(rawPassword, hashed, salt));
+      Assert.True(sut.VerifyPassword(hashed, rawPassword, salt));
     }
   }
 }
