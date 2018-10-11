@@ -9,7 +9,8 @@ namespace PasswordHash.Lib {
       string hashed = HashPassword(rawPassword, salt);
       return (hashed, salt);
     }
-    public bool VerifyPassword(string rawPassword, string hashedPassword, byte[] salt) => throw new NotImplementedException();
+    public bool VerifyPassword(string rawPassword, string hashedPassword, byte[] salt) =>
+      hashedPassword == HashPassword(rawPassword, salt);
 
     string HashPassword(string rawPassword, byte[] salt) =>
       Convert.ToBase64String(
