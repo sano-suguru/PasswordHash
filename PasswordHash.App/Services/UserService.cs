@@ -18,11 +18,12 @@ namespace PasswordHash.App.Services {
         return false;
       }
       (string hashed, byte[] salt) = passwordService.HashPassword(rawPassword);
-      dbContext.Users.Add(new User {
+      var user = new User {
         Name = username,
         HashedPassword = hashed,
         Salt = salt
-      });
+      };
+      dbContext.Users.Add(user);
       dbContext.SaveChanges();
       return true;
     }
