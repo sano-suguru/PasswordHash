@@ -13,6 +13,7 @@ namespace PasswordHash.App.Services {
       this.dbContext = dbContext;
       this.passwordService = passwordService;
     }
+
     public bool Register([FromBody] string username, [FromBody] string rawPassword) {
       bool duplicated = dbContext.Users.Any(u => u.Name == username);
       if (duplicated) {
