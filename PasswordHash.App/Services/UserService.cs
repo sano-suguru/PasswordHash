@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PasswordHash.App.Models;
+﻿using PasswordHash.App.Models;
 using PasswordHash.Lib;
-using System;
 using System.Linq;
 
 namespace PasswordHash.App.Services {
@@ -14,7 +12,7 @@ namespace PasswordHash.App.Services {
       this.passwordService = passwordService;
     }
 
-    public bool Register([FromBody] string username, [FromBody] string rawPassword) {
+    public bool Register(string username, string rawPassword) {
       bool duplicated = dbContext.Users.Any(u => u.Name == username);
       if (duplicated) {
         return false;
@@ -29,7 +27,7 @@ namespace PasswordHash.App.Services {
       return true;
     }
 
-    public bool Authenticate([FromBody] string username, [FromBody] string rawPassword) {
+    public bool Authenticate(string username, string rawPassword) {
       var user = dbContext.Users.SingleOrDefault(u => u.Name == username);
       if (user is null) {
         return false;
