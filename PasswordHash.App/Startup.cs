@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PasswordHash.App.Models;
+using PasswordHash.App.Services;
+using PasswordHash.Lib;
 
 namespace PasswordHash.App {
   public class Startup {
@@ -20,6 +22,8 @@ namespace PasswordHash.App {
       services.AddDbContext<MyDbContext>(options => {
         options.UseInMemoryDatabase(databaseName: "mydb");
       });
+      services.AddTransient<IPasswordService, PasswordService>();
+      services.AddTransient<IUserService, UserService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
