@@ -12,13 +12,18 @@ namespace PasswordHash.App.Controllers {
     }
 
     [HttpPost]
-    public IActionResult RegisterUser([FromBody] string username, [FromBody] string rawPassword) {
-      bool success = userService.Register(username, rawPassword);
+    public IActionResult RegisterUser([FromBody]RegisterUserRequest request) {
+      bool success = userService.Register(request.UserName, request.RawPassword);
       if (success) {
         return Ok();
       } else {
         return Conflict();
       }
     }
+  }
+
+  public class RegisterUserRequest {
+    public string UserName { get; set; }
+    public string RawPassword { get; set; }
   }
 }
