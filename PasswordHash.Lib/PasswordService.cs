@@ -17,7 +17,7 @@ namespace PasswordHash.Lib {
         KeyDerivation.Pbkdf2(
         password: rawPassword,
         salt: salt,
-        prf: KeyDerivationPrf.HMACSHA1,
+        prf: KeyDerivationPrf.HMACSHA512,
         iterationCount: 10000,
         numBytesRequested: 256 / 8));
 
