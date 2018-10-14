@@ -11,13 +11,19 @@ namespace PasswordHash.App.Controllers {
       this.userService = userService;
     }
 
-    public IActionResult Authenticate([FromBody] string username, [FromBody] string rawPassword) {
-      bool ok = userService.Authenticate(username, rawPassword);
+    [HttpPost]
+    public IActionResult Authenticate([FromBody]AuthenticateRequest request) {
+      bool ok = userService.Authenticate(request.UserName, request.RawPassword);
       if (ok) {
         return Ok();
       } else {
         return Unauthorized();
       }
     }
+  }
+
+  public class AuthenticateRequest {
+    public string UserName { get; set; }
+    public string RawPassword { get; set; }
   }
 }
