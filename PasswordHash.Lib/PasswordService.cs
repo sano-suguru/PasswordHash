@@ -12,16 +12,16 @@ namespace PasswordHash.Lib {
     public bool VerifyPassword(string hashedPassword, string rawPassword, byte[] salt) =>
       hashedPassword == HashPassword(rawPassword, salt);
 
-    string HashPassword(string rawPassword, byte[] salt) =>
+    private string HashPassword(string rawPassword, byte[] salt) =>
       Convert.ToBase64String(
         KeyDerivation.Pbkdf2(
-        password: rawPassword,
-        salt: salt,
-        prf: KeyDerivationPrf.HMACSHA512,
-        iterationCount: 10000,
-        numBytesRequested: 256 / 8));
+          password: rawPassword,
+          salt: salt,
+          prf: KeyDerivationPrf.HMACSHA512,
+          iterationCount: 10000,
+          numBytesRequested: 256 / 8));
 
-    byte[] GetSalt() {
+    private byte[] GetSalt() {
       using (var gen = RandomNumberGenerator.Create()) {
         var salt = new byte[128 / 8];
         gen.GetBytes(salt);
