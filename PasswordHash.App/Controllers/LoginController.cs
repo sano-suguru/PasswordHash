@@ -14,11 +14,7 @@ namespace PasswordHash.App.Controllers {
     [HttpPost]
     public IActionResult Authenticate([FromBody]AuthenticateRequest request) {
       bool ok = userService.Authenticate(request.UserName, request.RawPassword);
-      if (ok) {
-        return Ok();
-      } else {
-        return Unauthorized();
-      }
+      return ok ? Ok() : (IActionResult)Unauthorized();
     }
   }
 
