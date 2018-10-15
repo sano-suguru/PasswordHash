@@ -14,11 +14,7 @@ namespace PasswordHash.App.Controllers {
     [HttpPost]
     public IActionResult RegisterUser([FromBody]RegisterUserRequest request) {
       bool success = userService.Register(request.UserName, request.RawPassword);
-      if (success) {
-        return Ok();
-      } else {
-        return Conflict();
-      }
+      return success ? Ok() : (IActionResult)Conflict();
     }
   }
 
