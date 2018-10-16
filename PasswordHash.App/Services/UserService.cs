@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace PasswordHash.App.Services {
   public class UserService : IUserService {
-    private readonly MyDbContext dbContext;
-    private readonly IPasswordService passwordService;
+    readonly MyDbContext dbContext;
+    readonly IPasswordService passwordService;
 
     public UserService(MyDbContext dbContext, IPasswordService passwordService) {
       this.dbContext = dbContext;
@@ -30,10 +30,7 @@ namespace PasswordHash.App.Services {
 
     public bool Authenticate(string username, string rawPassword) {
       var user = dbContext.Users.SingleOrDefault(u => u.Name == username);
-      if (user is null) {
-        return false;
-      }
-      return passwordService.VerifyPassword(user.HashedPassword, rawPassword, user.Salt);
+      return !(user is null) && passwordService.VerifyPassword(user.HashedPassword, rawPassword, user.Salt);
     }
   }
 }

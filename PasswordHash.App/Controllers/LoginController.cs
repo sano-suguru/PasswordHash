@@ -5,7 +5,7 @@ namespace PasswordHash.App.Controllers {
   [Route("api/[controller]")]
   [ApiController]
   public class LoginController : ControllerBase {
-    private readonly IUserService userService;
+    readonly IUserService userService;
 
     public LoginController(IUserService userService) {
       this.userService = userService;

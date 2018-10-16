@@ -12,7 +12,7 @@ namespace PasswordHash.Lib {
     public bool VerifyPassword(string hashedPassword, string rawPassword, byte[] salt) =>
       hashedPassword == HashPassword(rawPassword, salt);
 
-    private string HashPassword(string rawPassword, byte[] salt) =>
+    string HashPassword(string rawPassword, byte[] salt) =>
       Convert.ToBase64String(
         KeyDerivation.Pbkdf2(
           password: rawPassword,
@@ -21,7 +21,7 @@ namespace PasswordHash.Lib {
           iterationCount: 10000,
           numBytesRequested: 256 / 8));
 
-    private byte[] GetSalt() {
+    byte[] GetSalt() {
       using (var gen = RandomNumberGenerator.Create()) {
         var salt = new byte[128 / 8];
         gen.GetBytes(salt);
